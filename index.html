@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AutoCAD 2D Online Course - 1 Week Access</title>
+
+<style>
+*{box-sizing:border-box}
+body{
+    margin:0;
+    font-family: "Segoe UI", Arial, sans-serif;
+    color:white;
+    background:#0b1a24;
+    overflow-x:hidden;
+}
+canvas{
+    position:fixed;
+    top:0;
+    left:0;
+    z-index:-1;
+}
+
+/* CONTENT */
+header{
+    text-align:center;
+    padding:50px 15px 30px;
+}
+header h1{
+    color:#00ffcc;
+    font-size:2.4em;
+    text-shadow:0 0 15px #00ffcc88;
+}
+.container{
+    max-width:1100px;
+    margin:auto;
+    padding:20px;
+}
+.card{
+    background:rgba(0,0,0,0.65);
+    backdrop-filter: blur(6px);
+    border-radius:18px;
+    padding:25px;
+    margin-bottom:25px;
+    box-shadow:0 0 20px #00ffcc33;
+    border:1px solid #00ffcc33;
+}
+h2{
+    color:#00ffcc;
+}
+ul{line-height:1.9}
+.price{
+    font-size:2.5em;
+    color:#00ff00;
+    text-align:center;
+}
+.duration{
+    text-align:center;
+    color:#ffcc00;
+}
+.notice{
+    background:#111;
+    border-left:4px solid #ffcc00;
+    padding:15px;
+    border-radius:10px;
+}
+footer{
+    text-align:center;
+    padding:15px;
+    background:black;
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="bg"></canvas>
+
+<header>
+<h1>AutoCAD 2D Online Course</h1>
+<p>Learn Mechanical Drawing with Live AutoCAD Session</p>
+</header>
+
+<div class="container">
+
+<div class="card">
+<h2>📘 Course Description</h2>
+<p>This course is designed for beginners who want to learn AutoCAD 2D drawing professionally with real mechanical drawing practice.</p>
+</div>
+
+<div class="card">
+<h2>📚 Course Syllabus (2D Drawing)</h2>
+<ul>
+<li>Introduction to AutoCAD</li>
+<li>User Interface & Navigation</li>
+<li>Draw Commands (Line, Circle, Arc, Rectangle)</li>
+<li>Modify Commands (Move, Copy, Rotate, Mirror, Scale)</li>
+<li>Object Snap, Grid & Units</li>
+<li>Layers, Colors & Linetypes</li>
+<li>Text & Dimensioning</li>
+<li>Hatching & Gradient</li>
+<li>Blocks & Insert</li>
+<li>Isometric Drawing</li>
+<li>Layout, Plotting & Printing</li>
+<li>Mini Mechanical Drawing Project</li>
+</ul>
+</div>
+
+<div class="card">
+<h2>📢 Important Course Policy</h2>
+<div class="notice">
+<p>✔ 100% Online Course</p>
+<p>✔ Access Duration: 1 Week</p>
+<p>✔ After 7 days, new payment required</p>
+</div>
+</div>
+
+<div class="card">
+<h2>💰 Course Fee</h2>
+<p class="price">Only ₹99</p>
+<p class="duration">1 Week Access</p>
+</div>
+
+<div class="card">
+<h2>🛒 Enroll Now</h2>
+<p>Secure payment powered by Razorpay</p>
+
+<form>
+<script src="https://checkout.razorpay.com/v1/payment-button.js"
+data-payment_button_id="pl_RE284sFynf4rUp" async></script>
+</form>
+</div>
+
+</div>
+
+<footer>
+© 2026 AutoCAD Mechanical Online Course | All Rights Reserved
+</footer>
+
+<script>
+const canvas = document.getElementById("bg");
+const ctx = canvas.getContext("2d");
+resize();
+window.onresize = resize;
+
+let t = 0;
+function resize(){
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+
+function drawGrid(){
+  ctx.strokeStyle="rgba(0,255,204,0.05)";
+  ctx.lineWidth=1;
+  for(let x=0;x<canvas.width;x+=50){
+    ctx.beginPath();
+    ctx.moveTo(x,0);ctx.lineTo(x,canvas.height);ctx.stroke();
+  }
+  for(let y=0;y<canvas.height;y+=50){
+    ctx.beginPath();
+    ctx.moveTo(0,y);ctx.lineTo(canvas.width,y);ctx.stroke();
+  }
+}
+
+function drawLine(){
+  ctx.strokeStyle="#00ffcc";
+  ctx.lineWidth=2;
+  ctx.beginPath();
+  ctx.moveTo(100,200);
+  ctx.lineTo(100+t,200+t/2);
+  ctx.stroke();
+}
+
+function drawCircle(){
+  ctx.strokeStyle="#00ffcc";
+  ctx.beginPath();
+  ctx.arc(500,300,80,0,Math.min(Math.PI*2,t/50));
+  ctx.stroke();
+}
+
+function drawGear(x,y,r){
+  ctx.save();
+  ctx.translate(x,y);
+  ctx.rotate(t/100);
+  ctx.strokeStyle="#00ffcc";
+  ctx.beginPath();
+  for(let i=0;i<20;i++){
+    let ang=i*Math.PI/10;
+    let rr = i%2==0 ? r : r-10;
+    ctx.lineTo(Math.cos(ang)*rr,Math.sin(ang)*rr);
+  }
+  ctx.closePath();
+  ctx.stroke();
+  ctx.restore();
+}
+
+function animate(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  drawGrid();
+  drawLine();
+  drawCircle();
+  drawGear(900,200,60);
+  drawGear(1100,400,40);
+  t++;
+  requestAnimationFrame(animate);
+}
+animate();
+</script>
+
+</body>
+</html>
